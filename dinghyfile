@@ -13,7 +13,7 @@
                     "refId": "1", # Order of stage
                     "requisiteStageRefIds": [],
                     "type": "wait", # Type of stage
-                    "waitTime": 22 # Stage specific configurations
+                    "waitTime": 21 # Stage specific configurations
                 }
             ],
             "triggers": [] # Triggers for the pipeline
