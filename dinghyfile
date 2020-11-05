@@ -1,21 +1,21 @@
 {
-    "application": "test",
-    "pipelines": [
-        {
-            "application": "test",
-            "keepWaitingPipelines": false,
-            "limitConcurrent": true,
-            "name": "Dinghy Pipeline",
-            "stages": [
-                {
-                    "name": "Wait",
-                    "refId": "1",
-                    "requisiteStageRefIds": [],
-                    "type": "wait",
-                    "waitTime": 23
-                }
-            ],
-            "triggers": []
-        }
-    ]
+  "application": "test",
+  "pipelines": [
+    {
+      "application": "test",
+      "keepWaitingPipelines": false,
+      "limitConcurrent": true,
+      "name": "Dinghy Pipeline",
+      "stages": [
+            {
+                "name": "Wait",
+                "refId": "1",
+                "requisiteStageRefIds": [],
+                "type": "wait",
+                "waitTime": 30
+            },
+      ],
+      "triggers": []
+    }
+  ]
 }
