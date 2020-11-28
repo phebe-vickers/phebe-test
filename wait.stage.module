@@ -3,5 +3,5 @@
     "refId": "1",
     "requisiteStageRefIds": [],
     "type": "wait",
-    "waitTime": {{ var "waitTime" ?: 11 }}
+    "waitTime": {{ var "waitTime" ?: 5 }}
 }
