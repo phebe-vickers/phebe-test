@@ -1,5 +1,5 @@
 {
-    "name": "{{ var "name" ?: "waitstage" }}",
+    "name": "{{ var "name" ?: "Wait" }}",
     "refId": "1",
     "requisiteStageRefIds": [],
     "type": "wait",
