@@ -2,7 +2,7 @@
   "application": "test",
   "pipelines": [
     {
-      "application": "test",
+      "application": "mytest",
       "keepWaitingPipelines": false,
       "limitConcurrent": true,
       "name": "Dinghy Pipeline",
