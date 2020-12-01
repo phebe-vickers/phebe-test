@@ -6,7 +6,6 @@
       "keepWaitingPipelines": false,
       "limitConcurrent": true,
       "name": "Dinghy Pipeline",
-      why
       "stages": [
           {{ module "wait.stage.module"}}
       ],
