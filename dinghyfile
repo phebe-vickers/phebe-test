@@ -1,5 +1,5 @@
 {
-  "application": "test",
+  "application": "mytest",
   "pipelines": [
     {
       "application": "mytest",
