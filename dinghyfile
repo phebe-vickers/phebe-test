@@ -1,8 +1,8 @@
 {
-  "application": "mytest",
+  "application": "mytest-via-dinghy",
   "pipelines": [
     {
-      "application": "mytest",
+      "application": "mytest-via-dinghy",
       "keepWaitingPipelines": false,
       "limitConcurrent": true,
       "name": "Dinghy Pipeline",
