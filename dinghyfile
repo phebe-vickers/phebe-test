@@ -1,8 +1,8 @@
 {
-  "application": "phebe-test-via-dinghy",
+  "application": "phebe-test-using-dinghy",
   "pipelines": [
     {
-      "application": "phebe-test-via-dinghy",
+      "application": "phebe-test-using-dinghy",
       "keepWaitingPipelines": false,
       "limitConcurrent": true,
       "name": "Dinghy Pipeline",
