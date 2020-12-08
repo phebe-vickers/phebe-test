@@ -7,3 +7,4 @@ No hooks being received yet
 Ah yes I redeployed so gate address has changed. Updated that.
 That worked now removed bake stage.
 Now seeing if that worked
+Now added a wait stage so it would not terminate
