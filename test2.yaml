@@ -1,0 +1,171 @@
+apiVersion: spinnaker.armory.io/v1alpha2
+kind: SpinnakerService
+metadata:
+  name: spinnaker
+  namespace: austin-oss
+spec:
+  # spec.spinnakerConfig - This section is how to specify configuration spinnaker
+  spinnakerConfig:
+  # spec.spinnakerConfig.config - This section contains the contents of a deployment found in a halconfig .deploymentConfigurations[0]
+    config:
+      version: 2.17.7  # the version of Spinnaker to be deployed
+################################################################################################################################################################      
+      providers:
+        kubernetes:
+          enabled: true
+          primaryAccount: spinnaker
+          accounts:
+          - name: spinnaker
+            serviceAccount: true
+            providerVersion: V2
+            permissions: {}
+            dockerRegistries: []
+            cacheThreads: 1
+            namespaces: []
+            omitNamespaces:
+            - austin-thao
+            kinds: []
+            omitKinds: []
+            customResources:
+            - kubernetesKind: spinnakerservices.spinnaker.armory.io
+              versioned: false
+            - kubernetesKind: spinnakerservices.spinnaker.io
+              versioned: false
+            - kubernetesKind: spinnakeraccounts.spinnaker.io
+              versioned: false
+            checkPermissionsOnStartup: true
+            liveManifestCalls: 
+            cachingPolicies: []
+            oAuthScopes: []
+            onlySpinnakerManaged: false        
+        aws:
+          enabled: false
+          primaryAccount: austin-aws
+          accounts:
+          - name: austin-aws
+            accountId: 810711266228
+            assumeRole: role/aws-spin-support-managedrole
+            permissions:
+            providerVersion: V1
+            regions:
+              - name: us-east-2
+        ecs:
+          enabled: false
+          accounts:
+          - name: austin-ecs
+            awsAccount: austin-aws
+          primaryAccount: austin-ecs
+################################################################################################################################################################
+      armory:
+        terraform:
+          enabled: true
+        dinghy:
+          enabled: true
+          templateOrg: “austinthao5”
+          templateRepo: dinghy_test
+          githubToken: 02590467b05e3a562815132074c6805e0858d011
+          githubEndpoint: https://api.github.com
+          dinghyFilename: dinghyfile
+          autoLockPipelines: true
+          notifiers:
+            slack:
+              enabled: false
+        diagnostics:
+          enabled: true
+          logging:
+            enabled: true
+            endpoint: https://debug.armory.io/v1/logs
+################################################################################################################################################################
+      persistentStorage:
+        persistentStoreType: s3
+        s3:
+          bucket: austinthao
+          rootFolder: front50
+      features:
+        artifacts: true
+        pipelineTemplates: true
+      artifacts:
+        gitrepo:
+          enabled: true
+          accounts:
+          - name: AT_GitRepo
+            token: 02590467b05e3a562815132074c6805e0858d011
+        github:
+          enabled: true
+          accounts:
+          - name: AT_Github
+            token: 02590467b05e3a562815132074c6805e0858d011
+################################################################################################################################################################
+      metricStores:
+        prometheus:
+          enabled: false
+          add_source_metalabels: false   
+################################################################################################################################################################
+      canary:
+        enabled: false
+        serviceIntegrations:
+        - name: prometheus
+          enabled: false
+          accounts:
+          - name: my-prometheus
+            endpoint:
+              baseUrl: http://prometheus-prometheus-operator-159897-prometheus.prometheus:9090
+            supportedTypes:
+            - METRICS_STORE
+        - name: aws
+          enabled: false    # Enable/disable aws provider
+          accounts:
+          - name:  austin-aws
+            bucket: austin-op-s3       # The name of a storage bucket that your specified account has access to. If you specify a globally unique bucket name that doesn't exist, Kayenta creates that bucket for you.
+            region: us-east-2       # The region to use.
+            rootFolder: kayenta     # The root folder in the chosen bucket to place all of the Canary service's persistent data in (Default: kayenta).
+            profileName: testing    # The profile name to use when resolving AWS credentials. Typically found in ~/.aws/credentials (Default: default).
+            accessKeyId: AKIA3ZQRIGO2DSOHERE5        # The default access key used to communicate with AWS. This field supports "encrypted" field references (https://docs.armory.io/spinnaker-install-admin-guides/secrets/)
+            secretAccessKey: lC150kcxbeOS4teFDVCeRCQgFHkx0CTQEsuJs8Qm    # The secret key used to communicate with AWS. This field supports "encrypted" field references (https://docs.armory.io/spinnaker-install-admin-guides/secrets/)
+            supportedTypes:         # Array of: METRICS_STORE, METRICS_STORE, OBJECT_STORE
+            - CONFIGURATION_STORE
+            - OBJECT_STORE
+          s3Enabled: false          # Whether or not to enable S3 as a persistent store (Default: false).
+        reduxLoggerEnabled: false
+        defaultMetricsAccount: my-prometheus
+        defaultStorageAccount: austin-aws
+        defaultJudge: NetflixACAJudge-v1.0
+        defaultMetricsStore: prometheus
+        stagesEnabled: false
+        templatesEnabled: false
+        showAllConfigsEnabled: false
+################################################################################################################################################################
+      security:
+        authn:
+          oauth2:
+            enabled: false
+            client: {}
+            resource: {}
+            userInfoMapping: {}
+          saml:
+            enabled: false
+            userAttributeMapping: {}
+          ldap:
+            enabled: false
+            url: ldap://192.168.64.5:389/dc=armory-sup-eng,dc=net
+            userSearchFilter: (&(objectClass=user)(sAMAccountName={0}))
+            managerDn: service_ldap_spin@armory-sup-eng.net
+            managerPassword: IwDPiK0@v2&!
+            groupSearchBase: ou=ArmorySup-Eng
+          x509:
+            enabled: false
+          iap:
+            enabled: false
+          enabled: false
+        authz:
+          groupMembership:
+            service: EXTERNAL
+            google:
+              roleProviderType: GOOGLE
+            github:
+              roleProviderType: GITHUB
+            file:
+              roleProviderType: FILE
+            ldap:
+              roleProviderType: LDAP
+          enabled: false
