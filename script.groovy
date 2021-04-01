@@ -1,5 +1,5 @@
-def function() {
-    echo 'building the application'
+def buildApp() {
+    echo 'building the application ....'
 }
 
 return this
