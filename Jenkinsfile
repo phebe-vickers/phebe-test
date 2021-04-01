@@ -1,3 +1,4 @@
+def gv
 pipeline {
 
     agent any
@@ -7,6 +8,11 @@ pipeline {
     }
     
     stages {
+        stage("init") {
+            steps {
+                script {
+                    gv = load  "script.groovy"
+                }
         stage("run frontend") {
         
             steps {
